@@ -1,20 +1,21 @@
 let path = require('path');
 let express = require('express');
-let mainRouter = require('./mainRoutes.js');
 let app = express();
 
+//loading body-parser
+let bodyParser = require('body-parser');
 
-app.get('/', function (req, res) {
-res.send('Hello World');
-});
+let mainRouter = require('./mainRoutes.js');
+let todoRouter = require('./todoRoutes.js');
 
-app.get('/about', function(req, res){
-res.sendFile(path.join(__dirname, 'views', 'about.html'));
-});
+//tell express to use bodyParser for JSON and URL encoded form bodies
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/', mainRouter);
+app.use('/todo', todoRouter);
+
+//app.use('/cdn', express.static('public')); /* this will mount your public directory to '/cdn'. i.e. your scripts folder will be at /cdn/scripts */
+
 app.listen(process.env.PORT || 3000);
 console.log("Express server running on port 3000");
-
-
-
