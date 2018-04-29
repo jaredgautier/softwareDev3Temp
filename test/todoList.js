@@ -1,16 +1,16 @@
 "use strict";
 
-let chai = require("chai");
-chai.should();
+const chai = require('chai').assert;
+const script = require('../todoList');
 
-describe("Hello", function() 
+describe("TodoList", function ()
 {
-	describe("World", function()
-	{
-		it("hello should greet the world", function()
-		{
-			let hello = "world";
-			hello.should.equal("world");
-		});
-	});
+
+
+    it("edit edits the right value", function () {
+        script.edit("edited",1);
+        chai.equal(script.get(1), "edited");
+    });
+
+
 });
